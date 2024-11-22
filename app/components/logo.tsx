@@ -9,14 +9,14 @@ const BakBakOne = Bakbak_One({
 
 export default function Logo() {
   return (
-    <div className={`flex mx-3 my-4  w-full justify-center items-center text-white gap-3 ${BakBakOne.className}`}>
+    <div className={`flex my-4 w-full justify-start items-center text-white ${BakBakOne.className}`}>
              {/**Logo Image */}
-             {/* <Image 
+             <Image 
                alt='Logo image'
                width={75}
                height={120}
-               src={''}
-             /> */}
+               src={'/logo-no-background.png'}
+             />
 
              <h1 className='text-xl'>RecyCoil</h1>
       </div>

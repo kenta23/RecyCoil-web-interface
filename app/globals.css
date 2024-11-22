@@ -5,6 +5,18 @@
 body {
   font-family: Arial, Helvetica, sans-serif;
 }
+progress {
+    @apply w-full h-4 rounded-lg overflow-hidden;
+}
+progress::-webkit-progress-value {
+    @apply bg-green-500; /* Tailwind utility for value */
+}
+progress::-webkit-progress-bar {
+    @apply bg-gray-200; /* Tailwind utility for background */
+}
+progress::-moz-progress-bar {
+    @apply bg-green-500; /* Tailwind utility for Firefox */
+}
 
 @layer base {
   :root {
