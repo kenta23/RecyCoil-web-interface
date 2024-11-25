@@ -1,7 +1,10 @@
+'use client';
+
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet'
 import React from 'react'
 import PieChart from '../components/pie-chart';
 import { BsFillFuelPumpFill } from 'react-icons/bs';
+import { BorderLinearProgress } from '../components/progressbar';
 
 export default function page() {
   return (
@@ -24,24 +27,84 @@ export default function page() {
               </div>
             </SheetTrigger>
 
-            <SheetContent className="bg-[#ececd3]">
+            <SheetContent className="bg-white">
               <SheetHeader>
-                <SheetTitle>Date Today</SheetTitle>
+                <SheetTitle>Name of the data log</SheetTitle>
 
                 <SheetDescription>
-                  This action cannot be undone. This will permanently delete
-                  your account and remove your data from our servers.
+                  The data shown in this chart from your last production
                 </SheetDescription>
               </SheetHeader>
 
-              <div className="w-full ">
-                <div className="w-[350px]">
+              <div className="w-full flex flex-col gap-8 items-center">
+                <div className="w-[230px]">
                   <PieChart
                     title="Bio fuel produced"
                     fill=" #3ad65e"
                     icon={<BsFillFuelPumpFill size={18} />}
-                    value={400}
+                    value={250}
                   />
+                </div>
+
+                <div className="flex justify-center flex-wrap gap-4">
+                  <div className="space-y-2">
+                    {/*EFFICIENCY **/}
+                    <BorderLinearProgress
+                      variant="determinate"
+                      id="efficiency"
+                      aria-label="efficiency"
+                      value={40}
+                      sx={{
+                        "& .MuiLinearProgress-bar": {
+                          backgroundColor: "#8962F9", // Customize the bar color
+                        },
+                      }}
+                    />
+                    <label htmlFor="efficiency">
+                      Efficiency: <span className="font-semibold">40%</span>
+                    </label>
+                  </div>
+
+
+                  <div className="space-y-2">
+                    {/*EFFICIENCY **/}
+                    <BorderLinearProgress
+                      variant="determinate"
+                      id="efficiency"
+                      aria-label="efficiency"
+                      value={40}
+                      sx={{
+                        "& .MuiLinearProgress-bar": {
+                          backgroundColor: "#8962F9", // Customize the bar color
+                        },
+                      }}
+                    />
+                    <label htmlFor="efficiency">
+                      Efficiency: <span className="font-semibold">40%</span>
+                    </label>
+                  </div>
+
+
+                  <div className="space-y-2">
+                    {/*EFFICIENCY **/}
+                    <BorderLinearProgress
+                      variant="determinate"
+                      id="efficiency"
+                      aria-label="efficiency"
+                      value={40}
+                      sx={{
+                        "& .MuiLinearProgress-bar": {
+                          backgroundColor: "#8962F9", // Customize the bar color
+                        },
+                      }}
+                    />
+                    <label htmlFor="efficiency">
+                      Efficiency: <span className="font-semibold">40%</span>
+                    </label>
+                  </div>
+
+
+
                 </div>
               </div>
             </SheetContent>

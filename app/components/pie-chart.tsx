@@ -7,6 +7,7 @@ import {
   PolarRadiusAxis,
   RadialBar,
   RadialBarChart,
+  ResponsiveContainer,
 } from "recharts"
 import {
   Card,
@@ -39,55 +40,58 @@ const chartConfig = {
 
 
   return (
-    <Card className="flex bg-transparent border-transparent outline-none w-[350px] flex-col">
+    <Card className="flex bg-transparent border-transparent outline-none flex-col">
       <CardContent className="flex-1 pb-0">
-        <ChartContainer
-          config={chartConfig}
-          className="mx-auto aspect-square max-h-[200px]"
-        >
-          <RadialBarChart
-            data={chartData}
-            startAngle={90}
-            endAngle={value + 90} //fuel produced value
-            innerRadius={80}
-            outerRadius={120}
-          >
-            <PolarGrid
-              gridType="circle"
-              radialLines={false}
-              stroke="none"
-              className="first:fill-muted last:fill-background"
-              polarRadius={[86, 74]}
-            />
-            <RadialBar dataKey="value"
-             background cornerRadius={10} />
+        <div className="mx-auto aspect-square w-full max-w-sm">
+          <ResponsiveContainer>
+            <RadialBarChart
+              data={chartData}
+              startAngle={90}
+              endAngle={value + 90} //fuel produced value
+              innerRadius={80}
+              outerRadius={120}
+            >
+              <PolarGrid
+                gridType="circle"
+                radialLines={false}
+                stroke="none"
+                className="first:fill-muted last:fill-background"
+                polarRadius={[86, 74]}
+              />
+              <RadialBar dataKey="value" background cornerRadius={10} />
 
-            <PolarRadiusAxis tick={false} tickLine={false} axisLine={false}>
-              <Label
-                content={({ viewBox }) => {
-                  if (viewBox && "cx" in viewBox && "cy" in viewBox) {
-                    return (
-                      <text
-                        x={viewBox.cx}
-                        y={viewBox.cy}
-                        textAnchor="middle"
-                        dominantBaseline="middle"
-                      >
-                        <tspan
+              <PolarRadiusAxis
+                className=""
+                tick={false}
+                tickLine={false}
+                axisLine={false}
+              >
+                <Label
+                  content={({ viewBox }) => {
+                    if (viewBox && "cx" in viewBox && "cy" in viewBox) {
+                      return (
+                        <text
                           x={viewBox.cx}
                           y={viewBox.cy}
-                          className="fill-foreground text-4xl font-bold"
+                          textAnchor="middle"
+                          dominantBaseline="middle"
                         >
-                          {chartData[0].value.toLocaleString()}
-                        </tspan>
-                      </text>
-                    )
-                  }
-                }}
-              />
-            </PolarRadiusAxis>
-          </RadialBarChart>
-        </ChartContainer>
+                          <tspan
+                            x={viewBox.cx}
+                            y={viewBox.cy}
+                            className="fill-foreground text-4xl font-bold"
+                          >
+                            {chartData[0].value.toLocaleString()}
+                          </tspan>
+                        </text>
+                      );
+                    }
+                  }}
+                />
+              </PolarRadiusAxis>
+            </RadialBarChart>
+          </ResponsiveContainer>
+        </div>
       </CardContent>
       <CardFooter className="flex-col gap-2 text-sm">
         <div className="flex items-center gap-2 font-medium leading-none">
@@ -95,5 +99,5 @@ const chartConfig = {
         </div>
       </CardFooter>
     </Card>
-  )
+  );
 }
