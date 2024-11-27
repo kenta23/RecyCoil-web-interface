@@ -10,22 +10,25 @@ export default function Contextprovider({
   children: Readonly<React.ReactNode>;
 }) {
   const [loading, setLoading] = useState<boolean>(true);
+  const [isClient, setIsClient] = useState(false)
+ 
 
   //this would be the loading screen
   //only run at once
   useEffect(() => {
     const timeout = setTimeout(() => {
       setLoading(false);
-
+      setIsClient(true)
       return () => clearTimeout(timeout);
+
     }, 2000);
   }, []);
 
-  return loading ? (
+  return loading && !isClient ? (
     <LoadingScreen />
   ) : (
-    <WebSocketProvider  url="ws://localhost:3000/api/ws">
-      {children}
-    </WebSocketProvider>
+      <WebSocketProvider url="ws://localhost:3000/api/ws">
+         {children}
+      </WebSocketProvider>
   );
 }

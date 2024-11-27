@@ -14,29 +14,34 @@ import {
   CardContent,
   CardFooter,
 } from "@/components/ui/card"
-import { ChartConfig, ChartContainer } from "@/components/ui/chart"
+import { ChartConfig } from "@/components/ui/chart"
+import { useEffect, useMemo } from "react";
 
 
+export default function PieChart({
+  title,
+  icon,
+  value,
+  fill,
+}: {
+  title: string;
+  icon: React.ReactNode;
+  value: number;
+  fill: string;
+}) {
+  const chartData = [{ value, fill }];
+
+  // const chartConfig = {
+  //   title: {
+  //     label: title,
+  //   },
+  //   safari: {
+  //     label: "Safari",
+  //     color: "hsl(var(--chart-2))",
+  //   },
+  // } satisfies ChartConfig;
 
 
-export default function PieChart( { title, icon, value, fill } : { title: string, icon: React.ReactNode, value: number, fill: string }) {
-
-  
-const chartData = [
-  { browser: "safari", value, fill },
-]
-
-
-const chartConfig = {
-  title: {
-    label: title,
-  },
-  safari: {
-    label: "Safari",
-    color: "hsl(var(--chart-2))",
-  },
-
-} satisfies ChartConfig
 
 
   return (

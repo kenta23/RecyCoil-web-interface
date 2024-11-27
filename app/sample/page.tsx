@@ -1,58 +1,43 @@
+// page.tsx
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
-import { useWebSocket } from 'next-ws/client';
-
+import {  useEffect, useMemo } from 'react';
 
 export default function Page() {
-  const ws = useWebSocket();
+   
+   const ws = useMemo(() => new WebSocket('ws://localhost:4000/ws'),[]);
 
-  const inputRef = useRef<HTMLInputElement>(null);
-  const [message, setMessage] = useState<string[] | null>(null);
+   useEffect(() => {
+     ws.onopen = () => {
+       console.log("WebSocket connection opened");
+     };
+     // Handle messages from the server
+     const handleMessage = (e: MessageEvent) => {
+       console.log("WebSocket message received:", e.data);
+     };
 
+     ws.onerror = () => {
+       console.log("WebSocket connection error");
+     };
 
-  
-  useEffect(() => {
-     async function onMessage(event: MessageEvent) {
-        const payload = typeof event.data === 'string' ? event.data : event.data.text();
+     ws.onclose = () => {
+       console.log("WebSocket connection closed");
+     };
 
-        try {
-          // Attempt to parse JSON if possible
-          const parsedData = JSON.parse(payload);
-          console.log('Parsed JSON:', parsedData);
-          setMessage(parsedData);
-        } catch (error) { 
-          // If not JSON, treat it as plain text
-          console.log('Received non-JSON message:', error);
-          setMessage(s => [...s ?? [], payload]); // Store raw message if necessary
-        }
-    }
+     ws?.addEventListener("message", handleMessage);
 
-     ws?.addEventListener('message', onMessage);
-     return () => ws?.removeEventListener('message', onMessage);
-  }, [ws]);
+     // Cleanup on component unmount
+     return () => {
+       ws.removeEventListener("message", handleMessage);
+       ws.close();
+     };
+   }, [ws]);
+
 
 
   return (
-    <div className='w-full bg-red-200 h-full'>
-    <input
-      ref={inputRef}
-      type="text"
-    />
-
-    <button
-      onClick={() => ws?.send(inputRef.current?.value ?? '')}
-    >
-      Send message to server
-    </button>
-
-
-      {message === null
-        ?  <p>Waiting to receive message...</p>
-        : message && message?.map((m, i) => (
-            <p key={i}>Got message: ${m.toString()}</p>
-        ))}
-
-  </div>
-  )
+    <div className='w-full'>
+          
+    </div>
+  );
 }
